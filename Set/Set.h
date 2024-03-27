@@ -23,12 +23,12 @@ public:
     Set& add(T x);
     Set& add(T* x, int size);
 
-    Set union(const Set& T) const;
+    Set set_union(const Set& T) const;
     Set interset() const;
     Set differ() const;
     Set sym_diff() const;
 
-    bool Contain(const T& x) const;
+    bool contain(const T& x) const;
     Set& remove(const T& x); // if no such element - exception 
     int size() const { return size; };
     // Оператор []
@@ -38,9 +38,24 @@ public:
     // Оператор =
     Set& operator=(const Set& other);
     // Метод друку
-    void printAll() const; 
+    void print_all() const; 
 
 };
+
+template<typename T>
+inline bool Set<T>::contain(const T& x) const
+{
+    Node* curr = head;
+    while (curr != nullptr) 
+    {
+        if (curr->value == x) 
+        {
+            return true;
+        }
+        curr = curr->next;
+    }
+    return false;
+}
 
 template<typename T>
 inline T& Set<T>::operator[](int index)
@@ -75,7 +90,7 @@ inline const T& Set<T>::operator[](int index) const
     return curr->value;
 }
 template<typename T>
-inline void Set<T>::printAll() const
+inline void Set<T>::print_all() const
 {
     Node* curr = head;
     if (curr == nullptr)
@@ -163,3 +178,37 @@ inline Set<T>::~Set()
         delete temp;
     }
 }
+
+template<typename T>
+inline Set<T> Set<T>::set_union(const Set& T) const
+{
+    Set Result;
+    Node* ptr1 = head;
+    Node* ptr2 = T.head;
+
+    while (ptr1 != nullptr && ptr2 != nullptr)
+    {
+        if (ptr1->value == ptr2->value)
+        {
+            Result.add(ptr1->value);
+            ptr1 = ptr1->next;
+            ptr2 = ptr2->next;
+        }
+        else if (ptr1->value > ptr2->value)
+        {
+            Result.add(ptr2->value);
+            ptr2 = ptr2->next;
+        }
+        else
+        {
+            Result.add(ptr1->value)
+            ptr1 = ptr1->next;
+        }
+    }
+
+    while (ptr2 != nullptr) {
+        Result.add(ptr2->value);
+    }
+    return Result;
+}
+
