@@ -13,15 +13,14 @@ private:
 	Node* head;
 	unsigned size;
 public:
-    Set() : head() {}
-    Set(T val, Node* next = nullptr) { head = new Node(val, next); }
+    Set() : head(T()) {}
+    Set(T x, Node* next = nullptr) { head = new Node(x, next); }
     Set(const Set& other);
     Set(T* elems, int n);
-    Set(T x);
     ~Set();
    
-    Set& add(T x);
-    Set& add(T* x, int size);
+    Set<T>& add(T x);
+    Set<T>& add(T* x, int size);
 
     Set set_union(const Set& T) const;
     Set interset() const;
@@ -31,13 +30,9 @@ public:
     bool contain(const T& x) const;
     Set& remove(const T& x); // if no such element - exception 
     int size() const { return size; };
-    // Оператор []
-    T& operator[] (int index); 
-    // Константний оператор []
-    const T& operator[] (int index) const; 
-    // Оператор =
+    // ГЋГЇГҐГ°Г ГІГ®Г° =
     Set& operator=(const Set& other);
-    // Метод друку
+    // ГЊГҐГІГ®Г¤ Г¤Г°ГіГЄГі
     void print_all() const; 
 
 };
@@ -155,15 +150,9 @@ inline Set<T>::Set(const Set& other)
     }
 }
 template<typename T>
-inline Set<T>::Set(T* elems, int n)
+inline Set<T>::Set(T* elems, int n) : head(nullptr)
 {
-
-}
-
-template<typename T>
-inline Set<T>::Set(T x)
-{
-
+    add(elems, n);
 }
 
 template<typename T>
@@ -211,4 +200,50 @@ inline Set<T> Set<T>::set_union(const Set& T) const
     }
     return Result;
 }
+inline Set<T>& Set<T>::add(T x)
+{
+    if (!contain(x))
+    {
+        Node phantom(T(), head);
+        Node* curr = &phantom;
+        while (curr->next != nullptr || curr->next->value < x)
+        {
+            curr = curr->next
+        }
+        Node* newNode(x, curr->next);
+        curr->next = newNode;
+    }
+    return *this;
+}
 
+template<typename T>
+inline Set<T>& Set<T>::add(T* x, int size)
+{
+    for (int i = 0; i < size; ++i)
+    {
+        add(x[i]);
+    }
+}
+template<typename T>
+inline Set<T> Set<T>::interset() const
+{
+    return Set();
+}
+
+template<typename T>
+inline Set<T> Set<T>::differ() const
+{
+    return Set();
+}
+
+template<typename T>
+inline Set<T> Set<T>::sym_diff() const
+{
+    return Set();
+}
+
+template<typename T>
+inline Set<T>& Set<T>::remove(const T& x)
+{
+
+}
