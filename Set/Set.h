@@ -33,6 +33,7 @@ public:
     Set& operator=(const Set& other);
     void print_all() const;
 
+
 };
 
 template<typename T>
@@ -161,7 +162,7 @@ inline Set<T> Set<T>::set_union(const Set& T) const
         else
         {
             Result.add(ptr1->value)
-                ptr1 = ptr1->next;
+            ptr1 = ptr1->next;
         }
     }
 
