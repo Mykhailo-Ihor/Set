@@ -53,44 +53,12 @@ inline bool Set<T>::contain(const T& x) const
 }
 
 template<typename T>
-inline T& Set<T>::operator[](int index)
-{
-    Node* curr = head;
-    for (int i = 0; i < index && curr != nullptr; ++i)
-    {
-        curr = curr->next;
-    }
-    if (curr == nullptr)
-    {
-        std::ostringstream oss;
-        oss << "Error: Cannot get element at index #" << index << std::endl;
-        throw std::out_of_range(oss.str());
-    }
-    return curr->value;
-}
-template<typename T>
-inline const T& Set<T>::operator[](int index) const
-{
-    Node* curr = head;
-    for (int i = 0; i < index && curr != nullptr; ++i)
-    {
-        curr = curr->next;
-    }
-    if (curr == nullptr)
-    {
-        std::ostringstream oss;
-        oss << "Error: Cannot get element at index #" << index << std::endl;
-        throw std::out_of_range(oss.str());
-    }
-    return curr->value;
-}
-template<typename T>
 inline void Set<T>::print_all() const
 {
     Node* curr = head;
     if (curr == nullptr)
     {
-        std::cout << "List is empty :(\n";
+        std::cout << "Set is empty :(\n";
     }
     else
     {
@@ -200,6 +168,7 @@ inline Set<T> Set<T>::set_union(const Set& T) const
     }
     return Result;
 }
+template <typename T>
 inline Set<T>& Set<T>::add(T x)
 {
     if (!contain(x))
