@@ -13,11 +13,10 @@ private:
 	Node* head;
 	unsigned size;
 public:
-    Set() : head() {}
-    Set(T val, Node* next = nullptr) { head = new Node(val, next); }
+    Set() : head(T()) {}
+    Set(T x, Node* next = nullptr) { head = new Node(x, next); }
     Set(const Set& other);
     Set(T* elems, int n);
-    Set(T x);
     ~Set();
    
     Set<T>& add(T x);
@@ -104,15 +103,9 @@ inline Set<T>::Set(const Set& other)
     }
 }
 template<typename T>
-inline Set<T>::Set(T* elems, int n)
+inline Set<T>::Set(T* elems, int n) : head(nullptr)
 {
-
-}
-
-template<typename T>
-inline Set<T>::Set(T x)
-{
-
+    add(elems, n);
 }
 
 template<typename T>
@@ -131,13 +124,27 @@ inline Set<T>::~Set()
 template<typename T>
 inline Set<T>& Set<T>::add(T x)
 {
-
+    if (!contain(x))
+    {
+        Node phantom(T(), head);
+        Node* curr = &phantom;
+        while (curr->next != nullptr || curr->next->value < x)
+        {
+            curr = curr->next
+        }
+        Node* newNode(x, curr->next);
+        curr->next = newNode;
+    }
+    return *this;
 }
 
 template<typename T>
 inline Set<T>& Set<T>::add(T* x, int size)
 {
-
+    for (int i = 0; i < size; ++i)
+    {
+        add(x[i]);
+    }
 }
 
 template<typename T>
