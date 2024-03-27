@@ -20,62 +20,26 @@ public:
     Set(T x);
     ~Set();
    
-    Set& add(T x);
-    Set& add(T* x, int size);
+    Set<T>& add(T x);
+    Set<T>& add(T* x, int size);
 
-    Set union(const Set& T) const;
+    Set set_union(const Set& T) const;
     Set interset() const;
     Set differ() const;
     Set sym_diff() const;
 
-    bool Contain(const T& x) const;
+    bool contain(const T& x) const;
     Set& remove(const T& x); // if no such element - exception 
     int size() const { return size; };
-    // Оператор []
-    T& operator[] (int index); 
-    // Константний оператор []
-    const T& operator[] (int index) const; 
     // Оператор =
     Set& operator=(const Set& other);
     // Метод друку
-    void printAll() const; 
+    void print_all() const; 
 
 };
 
 template<typename T>
-inline T& Set<T>::operator[](int index)
-{
-    Node* curr = head;
-    for (int i = 0; i < index && curr != nullptr; ++i)
-    {
-        curr = curr->next;
-    }
-    if (curr == nullptr)
-    {
-        std::ostringstream oss;
-        oss << "Error: Cannot get element at index #" << index << std::endl;
-        throw std::out_of_range(oss.str());
-    }
-    return curr->value;
-}
-template<typename T>
-inline const T& Set<T>::operator[](int index) const
-{
-    Node* curr = head;
-    for (int i = 0; i < index && curr != nullptr; ++i)
-    {
-        curr = curr->next;
-    }
-    if (curr == nullptr)
-    {
-        std::ostringstream oss;
-        oss << "Error: Cannot get element at index #" << index << std::endl;
-        throw std::out_of_range(oss.str());
-    }
-    return curr->value;
-}
-template<typename T>
-inline void Set<T>::printAll() const
+inline void Set<T>::print_all() const
 {
     Node* curr = head;
     if (curr == nullptr)
@@ -162,4 +126,52 @@ inline Set<T>::~Set()
         curr = curr->next;
         delete temp;
     }
+}
+
+template<typename T>
+inline Set<T>& Set<T>::add(T x)
+{
+
+}
+
+template<typename T>
+inline Set<T>& Set<T>::add(T* x, int size)
+{
+
+}
+
+template<typename T>
+inline Set<T> Set<T>::set_union(const Set& T) const
+{
+    return Set();
+}
+
+template<typename T>
+inline Set<T> Set<T>::interset() const
+{
+    return Set();
+}
+
+template<typename T>
+inline Set<T> Set<T>::differ() const
+{
+    return Set();
+}
+
+template<typename T>
+inline Set<T> Set<T>::sym_diff() const
+{
+    return Set();
+}
+
+template<typename T>
+inline bool Set<T>::contain(const T& x) const
+{
+    return false;
+}
+
+template<typename T>
+inline Set<T>& Set<T>::remove(const T& x)
+{
+
 }
