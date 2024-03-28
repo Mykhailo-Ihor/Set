@@ -1,5 +1,6 @@
 #pragma once
 #include <sstream>
+#include <iostream>
 template <typename T>
 class Set
 {
@@ -13,8 +14,8 @@ private:
     Node* head;
     unsigned size;
 public:
-    Set() : head(T()), size(0) {}
-    Set(T x, Node* next = nullptr) : size(1) { head = new Node(x, next); }
+    Set() : head(nullptr), size(0) {}
+    Set(T x, Node* next = nullptr) : size(1), head(new Node(x, next)) {}
     Set(const Set& other);
     Set(T* elems, int n);
     ~Set();
@@ -61,13 +62,14 @@ inline void Set<T>::print_all() const
     }
     else
     {
+        std::cout << "Set: { ";
         while (curr != nullptr)
         {
-
-            std::cout << curr->value << " ";
+            std::cout << curr->value;
+            if (curr->next != nullptr) std::cout << " ; ";
             curr = curr->next;
-            std::cout << std::endl;
         }
+        std::cout << " }, size: " << size << std::endl;
     }
 }
 template<typename T>
@@ -78,7 +80,7 @@ inline Set<T>& Set<T>::operator=(const Set<T>& other)
         {
             return *this;
         }
-        while (head != nullptr) 
+        while (head != nullptr)
         {
             Node* temp = head;
             head = head->next;
@@ -88,6 +90,7 @@ inline Set<T>& Set<T>::operator=(const Set<T>& other)
         {
             return *this;
         }
+        size = other.size;
         head = new Node(other.head->value);
         Node* curr = head;
         Node* otherCurr = other.head->next;
@@ -103,7 +106,7 @@ inline Set<T>& Set<T>::operator=(const Set<T>& other)
 
 template<typename T>
 inline Set<T>::Set(const Set& other)
-    : head(nullptr)
+    : head(nullptr), size(other.size)
 {
     if (other.head == nullptr)
     {
@@ -113,7 +116,7 @@ inline Set<T>::Set(const Set& other)
     head = new Node(other.head->value);
     Node* curr = head;
     Node* otherCurr = other.head->next;
-    while (otherCurr != nullptr) 
+    while (otherCurr != nullptr)
     {
         curr->next = new Node(otherCurr->value);
         curr = curr->next;
@@ -129,12 +132,10 @@ inline Set<T>::Set(T* elems, int n) : head(nullptr)
 template<typename T>
 inline Set<T>::~Set()
 {
-    Node* curr = head;
-    Node* temp;
-    while (curr != nullptr)
+    while (head != nullptr)
     {
-        temp = curr;
-        curr = curr->next;
+        Node* temp = head;
+        head = head->next;
         delete temp;
     }
 }
@@ -161,13 +162,19 @@ inline Set<T> Set<T>::set_union(const Set& T) const
         }
         else
         {
-            Result.add(ptr1->value)
+            Result.add(ptr1->value);
             ptr1 = ptr1->next;
         }
     }
-
-    while (ptr2 != nullptr) {
+    while (ptr1 != nullptr) 
+    {
+        Result.add(ptr1->value);
+        ptr1 = ptr1->next;
+    }
+    while (ptr2 != nullptr)
+    {
         Result.add(ptr2->value);
+        ptr2 = ptr2->next;
     }
     return Result;
 }
@@ -179,12 +186,13 @@ inline Set<T>& Set<T>::add(T x)
         ++size;
         Node phantom(T(), head);
         Node* curr = &phantom;
-        while (curr->next != nullptr || curr->next->value < x)
+        while (curr->next != nullptr && x > curr->next->value)
         {
-            curr = curr->next
-        }
-        Node* newNode(x, curr->next);
+            curr = curr->next;
+        } 
+        Node* newNode = new Node(x, curr->next);
         curr->next = newNode;
+        head = phantom.next;
     }
     return *this;
 }
@@ -196,6 +204,7 @@ inline Set<T>& Set<T>::add(T* x, int size)
     {
         add(x[i]);
     }
+    return *this;
 }
 template<typename T>
 inline Set<T> Set<T>::interset() const
@@ -220,6 +229,7 @@ inline Set<T>& Set<T>::remove(const T& x)
 {
     if (contain(x))
     {
+        --size;
         Node phantom(T(), head);
         Node* curr = &phantom;
         while (curr->next->value != x)
@@ -229,6 +239,7 @@ inline Set<T>& Set<T>::remove(const T& x)
         Node* temp = curr->next;
         curr->next = curr->next->next;
         delete temp;
+        head = phantom.next;
     }
     else
     {
