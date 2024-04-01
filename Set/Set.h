@@ -24,8 +24,8 @@ public:
     Set<T>& add(T* x, int size);
 
     Set set_union(const Set& T) const;
-    Set interset() const;
-    Set differ() const;
+    Set interset(const Set<T>& other) const;
+    Set differ(const Set<T>& other) const;
     Set sym_diff() const;
 
     bool contain(const T& x) const;
@@ -207,14 +207,48 @@ inline Set<T>& Set<T>::add(T* x, int size)
     return *this;
 }
 template<typename T>
-inline Set<T> Set<T>::interset() const
+inline Set<T> Set<T>::interset(const Set<T>& other) const
 {
+    Set<T> result;
+    Node* curr1 = head;
+    Node* curr2 = other.head;
+
+    while (curr1->next != nullptr)
+    {
+        while(curr2->next != nullptr)
+        {
+            if (curr1->value == curr2->value)
+                result.add(curr1->value);
+        }
+        curr1->next;
+    }
     return Set();
 }
 
 template<typename T>
-inline Set<T> Set<T>::differ() const
+inline Set<T> Set<T>::differ(const Set<T>& other) const
 {
+    Set<T> result;
+    Node* curr1 = head;
+    Node* curr2 = other.head;
+
+    while (curr1 != nullptr)
+    {
+        while (curr2 != nullptr)
+        {
+            if (curr1->value != curr2->value)
+            {
+                result.add(curr1->value);
+            }
+            else
+            {
+                curr2->next;
+            }
+        }
+
+        curr1->next;
+
+    }
     return Set();
 }
 
