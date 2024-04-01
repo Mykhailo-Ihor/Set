@@ -24,9 +24,9 @@ public:
     Set<T>& add(T* x, int size);
 
     Set set_union(const Set& T) const;
-    Set interset() const;
-    Set differ() const;
-    Set sym_diff() const;
+    Set interset(const Set& T) const;
+    Set differ(const Set& T) const;
+    Set sym_diff(const Set& T) const;
 
     bool contain(const T& x) const;
     Set& remove(const T& x); // if no such element - exception 
@@ -41,14 +41,15 @@ template<typename T>
 inline bool Set<T>::contain(const T& x) const
 {
     Node* curr = head;
-    while (curr != nullptr)
+    while (curr != nullptr && x <= curr->value)
     {
-        if (curr->value == x)
-        {
-            return true;
-        }
         curr = curr->next;
     }
+
+    if (curr->value == x) {
+        return true;
+    }
+
     return false;
 }
 
@@ -207,21 +208,25 @@ inline Set<T>& Set<T>::add(T* x, int size)
     return *this;
 }
 template<typename T>
-inline Set<T> Set<T>::interset() const
+inline Set<T> Set<T>::interset(const Set& T) const
 {
     return Set();
 }
 
 template<typename T>
-inline Set<T> Set<T>::differ() const
+inline Set<T> Set<T>::differ(const Set& T) const
 {
     return Set();
 }
 
 template<typename T>
-inline Set<T> Set<T>::sym_diff() const
+inline Set<T> Set<T>::sym_diff(const Set& T) const
 {
-    return Set();
+    Set A = this->differ(T);
+    Set B = T.differ(this);
+
+    Set C = A.set_union(B);
+    return C;
 }
 
 template<typename T>
