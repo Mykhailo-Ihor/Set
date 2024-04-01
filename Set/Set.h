@@ -41,14 +41,15 @@ template<typename T>
 inline bool Set<T>::contain(const T& x) const
 {
     Node* curr = head;
-    while (curr != nullptr)
+    while (curr != nullptr && x <= curr->value)
     {
-        if (curr->value == x)
-        {
-            return true;
-        }
         curr = curr->next;
     }
+
+    if (curr->value == x) {
+        return true;
+    }
+
     return false;
 }
 
