@@ -81,18 +81,19 @@ inline Set<T>::~Set()
 template <typename T>
 inline Set<T>& Set<T>::add(T x)
 {
-    if (!contain(x))
+    
+    Node phantom(T(), head);
+    Node* curr = &phantom;
+    while (curr->next != nullptr && curr->next->value < x)
     {
-        ++size;
-        Node phantom(T(), head);
-        Node* curr = &phantom;
-        while (curr->next != nullptr && x > curr->next->value)
-        {
-            curr = curr->next;
-        }
+        curr = curr->next;
+    }
+    if (curr->next == nullptr || x < curr->next->value)
+    {
         Node* newNode = new Node(x, curr->next);
         curr->next = newNode;
         head = phantom.next;
+        ++size;
     }
     return *this;
 }
@@ -110,25 +111,25 @@ inline Set<T>& Set<T>::add(T* x, int size)
 template<typename T>
 inline Set<T>& Set<T>::remove(const T& x)
 {
-    if (contain(x))
+    Node  phantom(T(), head);
+    Node* curr = &phantom;
+    while (curr->next != nullptr && curr->next->value < x)
     {
-        --size;
-        Node phantom(T(), head);
-        Node* curr = &phantom;
-        while (curr->next->value != x)
-        {
-            curr = curr->next;
-        }
-        Node* temp = curr->next;
-        curr->next = curr->next->next;
-        delete temp;
-        head = phantom.next;
+        curr = curr->next;
     }
-    else
+    if (curr->next == nullptr || x < curr->next->value)
     {
         std::ostringstream oss;
         oss << "Element: " << x << " is not in the set\n";
         throw std::runtime_error(oss.str());
+    }
+    else
+    {
+        Node* temp = curr->next;
+        curr->next = curr->next->next;
+        delete temp;
+        head = phantom.next;
+        --size;
     }
     return *this;
 }
@@ -149,20 +150,48 @@ inline Set<T>& Set<T>::remove_all()
 template<typename T>
 inline Set<T> Set<T>::set_union(const Set& other) const
 {
-    Set Result;
-    Node* curr = head;
-    while (curr != nullptr)
-    {
-        Result.add(curr->value);
-        curr = curr->next;
-    }
-    curr = other.head;
-    while (curr != nullptr)
-    {
-        Result.add(curr->value);
-        curr = curr->next;
-    }
-    return Result;
+	Set<T> Result;
+    Node phantom(T(),Result.head);
+	Node* res = &phantom;
+	Node* A = head;
+	Node* B = other.head;
+	while (A != nullptr && B != nullptr)
+	{
+		if (A->value < B->value)
+		{
+			res->next = new Node(A->value);
+			A = A->next;
+		}
+		else if (B->value < A->value)
+		{
+			res->next = new Node(B->value);
+			B = B->next;
+		}
+		else
+		{
+			res->next = new Node(A->value);
+			A = A->next;
+			B = B->next;
+		}
+		res = res->next;
+		++Result.size;
+	}
+	while (A != nullptr)
+	{
+		res->next = new Node(A->value);
+		A = A->next;
+		res = res->next;
+		++Result.size;
+	}
+	while (B != nullptr)
+	{
+		res->next = new Node(B->value);
+		B = B->next;
+		res = res->next;
+		++Result.size;
+	}
+    Result.head = phantom.next;
+	return Result;
 }
 
 template<typename T>
@@ -250,7 +279,7 @@ template<typename T>
 inline bool Set<T>::contain(const T& x) const
 {
     Node* curr = head;
-    while (curr != nullptr && x > curr->value)
+    while (curr != nullptr && curr->value < x)
     {
         curr = curr->next;
     }
