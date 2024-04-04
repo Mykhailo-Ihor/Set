@@ -11,8 +11,13 @@ int main()
     cout << "B = " << B;
     try
     {
+        cout << "Trying to remove 5 from set A...\n";
+        A.remove(5);
+        cout << "Deletion successful\n";
+
         cout << "Trying to remove 4 from set A...\n";
         A.remove(4);
+        cout << "Deletion successful\n";
     }
     catch (const std::runtime_error& ex)
     {
