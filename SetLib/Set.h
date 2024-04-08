@@ -41,7 +41,7 @@ public:
     Set& operator=(const Set& other);
     bool operator == (const Set<T>& other);
     friend Set<size_t> sieve_of_eratosthenes(size_t n);
-
+    friend void analyze_expression(std::string n);
 };
 
 template<typename T>
@@ -368,6 +368,6 @@ std::ostream& operator << (std::ostream& os, const Set<T>& S)
 }
 
 Set<size_t> sieve_of_eratosthenes(size_t n);
-
+void analyze_expression(std::string n);
 size_t digits(size_t n);
 void digits(size_t n, std::ostream& os);

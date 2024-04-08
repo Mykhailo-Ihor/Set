@@ -45,5 +45,6 @@ int main()
     Sieve.print_all();
     cout << "\nNumber 123454321 consists of digits: ";
     digits(12345321,cout);
+    analyze_expression("(2a+b*3-c");
     return 0;
 }
