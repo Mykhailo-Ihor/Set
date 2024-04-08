@@ -40,7 +40,10 @@ public:
     void print_all(std::ostream& os = std::cout) const;
     Set& operator=(const Set& other);
     bool operator == (const Set<T>& other);
+    friend Set<size_t> sieve_of_eratosthenes(size_t n);
+
 };
+
 template<typename T>
 inline Set<T>::Set(const Set& other)
     : head(nullptr), size(other.size)
@@ -249,6 +252,8 @@ Set<std::pair<T, U>> cartesian_product(const Set<T>& set1, const Set<U>& set2)
     }
     return result;
 }
+
+
 //template<typename T>
 //template<typename U>
 //Set<std::pair<T, U>> Set<T>::cartesian_product(const Set<U>& set2) const
@@ -361,3 +366,8 @@ std::ostream& operator << (std::ostream& os, const Set<T>& S)
     S.print_all();
     return os;
 }
+
+Set<size_t> sieve_of_eratosthenes(size_t n);
+
+size_t digits(size_t n);
+void digits(size_t n, std::ostream& os);

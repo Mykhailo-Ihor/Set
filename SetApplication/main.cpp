@@ -39,5 +39,11 @@ int main()
     H = cartesian_product(B.differ(3), ABC);
     cout << "H = (B-{3}) X {a,b,c} = " << H << endl;
     H.remove_all();
-    std::cout << "After removal: H = " << H;
+    cout << "After removal: H = " << H << endl;
+    cout << "All primes from 2 to 1000:\n";
+    Set<size_t> Sieve = sieve_of_eratosthenes(1000);
+    Sieve.print_all();
+    cout << "\nNumber 123454321 consists of digits: ";
+    digits(12345321,cout);
+    return 0;
 }
