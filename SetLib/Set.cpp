@@ -31,6 +31,37 @@ Set<size_t> sieve_of_eratosthenes(size_t n)
     return Sieve;
 }
 
+void analyze_expression(std::string n)
+{
+    char op[] = { '/','-','+','*' };
+    Set<char>operators(op, sizeof(op) / sizeof(op[0]));
+    unsigned numbers_counter = 0;
+    unsigned operators_counter = 0;
+    unsigned brackets_counter = 0;
+    unsigned variables_counter = 0;
+    for (std::string::iterator iter = n.begin(); iter != n.end(); ++iter)
+    {
+        if (*iter > '0' && '9' > *iter)
+        {
+            ++numbers_counter;
+        }
+        else if (*iter == '(' || *iter == ')')
+        {
+            ++brackets_counter;
+        }
+        else if (operators.contain(*iter))
+        {
+            ++operators_counter;
+        }
+        else ++variables_counter;
+    }
+    cout << "In expression: " << n << " are " << numbers_counter << ((numbers_counter == 1) ? " number, " : " numbers, ");
+    cout << operators_counter << ((operators_counter == 1) ? " operator, " : " operators, ");
+    cout << brackets_counter << ((brackets_counter == 1) ? " bracket and " : " brackets and ");
+    cout << variables_counter << ((variables_counter == 1) ? " variable\n" : " variables\n");
+    (brackets_counter % 2 == 0) ? cout << "The number of brackets is appropriate\n" : cout << "The number of brackets is inappropriate\n";
+}
+
 size_t digits(size_t n)
 {
     Set<unsigned> dig;
