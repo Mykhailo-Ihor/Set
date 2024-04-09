@@ -128,9 +128,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Set.h" />
+    <ClInclude Include="Сities.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Set.cpp" />
+    <ClCompile Include="Сities.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="cities.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
