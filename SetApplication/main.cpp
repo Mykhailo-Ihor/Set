@@ -1,8 +1,12 @@
 ﻿#include "../SetLib/Set.h"
-
+#include "../SetLib/Сities.h"
+#include <Windows.h>
 using namespace std;
 int main()
 {
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+    cout << "Демонстрація класу Set\n";
     int a[5] = { 1, 3, 5, 7, 9 };
     Set<int> A(a, 5);
     cout << "A = " << A;
@@ -39,12 +43,27 @@ int main()
     H = cartesian_product(B.differ(3), ABC);
     cout << "H = (B-{3}) X {a,b,c} = " << H << endl;
     H.remove_all();
-    cout << "After removal: H = " << H << endl;
-    cout << "All primes from 2 to 1000:\n";
-    Set<size_t> Sieve = sieve_of_eratosthenes(1000);
-    Sieve.print_all();
-    cout << "\nNumber 123454321 consists of digits: ";
-    digits(12345321,cout);
+    cout << "After removal: H = " << H << endl << "Press any button to continue...\n";
+    cin.get();
+    cout << "Демонстрація - Проць Михайло-Ігор\nЗадача п.1\n";
     analyze_expression("(2a+b*3-c");
+    cout << "\nЗадача п.2\n";
+    cout << "Число 123454321 складається з цифр: ";
+    digits(12345321, cout);
+    cout << "\nЗадача п.4\n";
+    cout << "Всі прості числа від 2 до 100:\n";
+    Set<size_t> Sieve = sieve_of_eratosthenes(100);
+    Sieve.print_all();
+    CitiesTable table;
+    table.readFromFile("../SetLib/cities.txt");
+    /*table.print_table();*/
+    cout << "\nЗадача п.7\n";
+    find_route(table, cities::Львів, cities::Луцьк);
+    find_route(table, cities::Житомир, cities::Львів);
+    find_route(table, cities::Львів, cities::Київ);
+    find_route(table, cities::Львів, cities::Вінниця);
+    find_route(table, cities::Львів, cities::Львів);
+    cout << "\nPress any button to continue...\n";
+    cin.get();
     return 0;
 }

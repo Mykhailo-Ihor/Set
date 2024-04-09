@@ -83,6 +83,9 @@ void digits(size_t n,ostream& os)
         n *= 0.1;
     }
     dig.add(n);
-    dig.print_all(os);
+    ostringstream oss;
+    oss << dig;
+    int start = oss.str().find('{');
+    int end = oss.str().find('}');
+    cout << oss.str().substr(start, end - start + 1);
 }
-
