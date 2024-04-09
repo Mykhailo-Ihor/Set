@@ -35,13 +35,35 @@ public:
     /*template<typename U>
     Set<std::pair<T, U>> cartesian_product(const Set<U>& set2) const;*/
 
-    Node* get_head() { return head; }
     bool contain(const T& x) const;
     int  get_size() const { return size; };
     void print_all(std::ostream& os = std::cout) const;
     Set& operator=(const Set& other);
     bool operator == (const Set<T>& other);
     friend Set<size_t> sieve_of_eratosthenes(size_t n);
+    class Iterator
+    {
+    private:
+        Node* ptr;
+    public:
+        Iterator(Node* p = nullptr) : ptr(p) { }
+        bool operator==(const Iterator& other) const
+        {
+            return this->ptr == other.ptr;
+        }
+        bool operator!=(const Iterator& other) const
+        {
+            return this->ptr != other.ptr;
+        }
+        Iterator& operator++()
+        {
+            ptr = ptr->next;
+            return *this;
+        }
+        T operator*() const { return ptr->value; }
+    };
+    Iterator begin() { return Iterator(head); }
+    Iterator end() { return Iterator(); }
 };
 
 template<typename T>
