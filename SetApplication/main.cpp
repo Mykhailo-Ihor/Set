@@ -1,5 +1,6 @@
 ﻿#include "../SetLib/Set.h"
 #include "../SetLib/Сities.h"
+#include "../SetLib/Guests.h"
 #include <Windows.h>
 using namespace std;
 int main()
@@ -65,5 +66,27 @@ int main()
     find_route(table, cities::Львів, cities::Львів);
     cout << "\nPress any button to continue...\n";
     cin.get();
+
+    GuestTable T;
+
+    cout << "\nЗадача номер 6:\n";
+    T.read_from_file("../SetLib/guests.txt");
+    T.print_table(); 
+    cout << "\nPress any button to continue...\n";
+    cin.get();
+
+    cout << "\n6.1, 6.2\n";
+    T.visited_all(); 
+    T.visited_the_least();
+    cout << "\nPress any button to continue...\n";
+    cin.get();
+
+    cout << "\n6.4\n";
+    T.reverse_table().print_table();
+    cout << "\nPress any button to continue...\n";
+    cin.get();
+
+    cout << "\n6.3\n";
+    cout << boolalpha << T.circle_of_three();
     return 0;
 }

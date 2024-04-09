@@ -21,6 +21,9 @@
     <ClInclude Include="Сities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Guests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Set.cpp">
@@ -32,6 +35,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="cities.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="guests.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
