@@ -1,6 +1,7 @@
 ﻿#include "../SetLib/Set.h"
 #include "../SetLib/Сities.h"
 #include "../SetLib/Guests.h"
+#include "../SetLib/Shop.h"
 #include <Windows.h>
 using namespace std;
 int main()
@@ -68,8 +69,8 @@ int main()
     cin.get();
 
     GuestTable T;
-
-    cout << "\nЗадача номер 6:\n";
+    cout << "Демонстрація - Мехеда Ксенія\n";
+    cout << "\nЗадача п.6:\n";
     T.read_from_file("../SetLib/guests.txt");
     T.print_table(); 
     cout << "\nPress any button to continue...\n";
@@ -80,13 +81,45 @@ int main()
     T.visited_the_least();
     cout << "\nPress any button to continue...\n";
     cin.get();
-
+    cout << "\n6.3\n";
+    T.circle_of_three();
+    cout << "\nPress any button to continue...\n";
+    cin.get();
     cout << "\n6.4\n";
     T.reverse_table().print_table();
     cout << "\nPress any button to continue...\n";
     cin.get();
+    cout << "Демонстрація - Доманов Віталій\n";
+    cout << "Задача п.1\n";
+    analyze_ex("(2+2) * (a - b)");
+    cout << "Задача п.3\n";
+    string line = "Hello World! Hello to everyone!";
+    cout << "3.1\n";
+    first_enter(line);
+    cout << "\n3.2\n";
+    at_least_twice(line);
+    cout << "3.3\n";
+    only_once(line);
+    cout << "\nPress any button to continue...\n";
+    cin.get();
+    cout << "Демонстрація - Шульгак Данило\n";
+    cout << "\nЗадача п.5:\n";
+    Set<Product> all_products = add_all_products(); 
+    Set<Product> store1;
+    store1.add(Product::Chesse).add(Product::Fish).add(Product::Bread).add(Product::Tea).add(Product::Water);
+    Set<Product> store2;
+    store2.add(Product::Salt).add(Product::Milk).add(Product::Fish).add(Product::Butter).add(Product::Chesse);
+    Set<Product> common_products = common(store1, store2);
+    cout << "Продукти які є у всіх магазинах\n ";
+    common_products.print_all();
 
-    cout << "\n6.3\n";
-    cout << boolalpha << T.circle_of_three();
+    Set<Product> any = any_product(store1, store2);
+    cout << "Продукти які є хоча б в одному магазині\n ";
+    any.print_all();
+
+    Set<Product> notf = not_find(all_products, store1, store2);
+    cout << "Продукти яких немає в жодному магазині\n ";
+    notf.print_all();
+
     return 0;
 }

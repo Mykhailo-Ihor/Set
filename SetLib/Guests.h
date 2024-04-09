@@ -56,8 +56,8 @@ public:
 	void print_table() const
 	{
 		for (int i = 0; i < static_cast<int>(names::counter); ++i)
-		{
-			std::cout << static_cast<names>(i) << ": " << visitors[i] << std::endl;
+		{	
+			std::cout << static_cast<names>(i) << ": " << visitors[i];
 		}
 	}
 
@@ -201,7 +201,6 @@ public:
 				Set<names>::Iterator Iter = visitors[i].begin();
 				Set<names> Expected = visitors[i];
 				Expected.add((names)i);
-				std::cout << Expected;
 				for (int j = 0; j < (int)names::counter; ++j)
 				{
 					if (visitors[j].contain(*Iter) && !Expected.contain((names)j))

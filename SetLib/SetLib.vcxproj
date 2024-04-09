@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClInclude Include="Guests.h" />
     <ClInclude Include="Set.h" />
+    <ClInclude Include="Shop.h" />
     <ClInclude Include="Сities.h" />
   </ItemGroup>
   <ItemGroup>

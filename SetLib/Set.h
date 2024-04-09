@@ -222,8 +222,8 @@ inline Set<T> Set<T>::set_union(const Set& other) const
 template<typename T>
 inline Set<T> Set<T>::intersect(const Set& other) const
 {
-    Set<int> A = other;
-    Set<int> res;
+    Set<T> A = other;
+    Set<T> res;
     Node* curr = (get_size() < other.get_size()) ? head : other.head;
     while (curr != nullptr)
     {
@@ -388,8 +388,19 @@ std::ostream& operator << (std::ostream& os, const Set<T>& S)
     S.print_all(os);
     return os;
 }
-
+//Prots
 Set<size_t> sieve_of_eratosthenes(size_t n);
+//Prots
 void analyze_expression(std::string n);
+//Prots
 size_t digits(size_t n);
+//Prots
 void digits(size_t n, std::ostream& os);
+//Domanov
+void analyze_ex(std::string ex);
+//Domanov
+void first_enter(std::string exm);
+//Domanov
+void at_least_twice(std::string exm);
+//Domanov
+void only_once(std::string exm);

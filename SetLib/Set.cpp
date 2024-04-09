@@ -89,3 +89,115 @@ void digits(size_t n,ostream& os)
     int end = oss.str().find('}');
     cout << oss.str().substr(start, end - start + 1);
 }
+
+void analyze_ex(const std::string ex)
+{
+    char brr[5] = { '+', '-', '*', '/', '=' };
+    Set<char> set_operators;
+    set_operators.add(brr, 5);
+
+    size_t numeral = 0;
+    size_t operators = 0;
+    size_t open_parenthesis = 0;
+    size_t closed_parenthesis = 0;
+
+
+    const char* arr = ex.c_str();
+    for (int i = 0; arr[i] != '\0'; ++i)
+    {
+
+        if (arr[i] > 47 && arr[i] < 58)
+        {
+            ++numeral;
+
+        }
+        else if (arr[i] == 40)
+        {
+            ++open_parenthesis;
+        }
+        else if (arr[i] == 41)
+        {
+            ++closed_parenthesis;
+        }
+        else if (set_operators.contain(arr[i]))
+        {
+            ++operators;
+        }
+    }
+
+
+    std::cout << "numbers = " << numeral << std::endl;
+    std::cout << "operators = " << operators << std::endl;
+    std::cout << "open_parenthesis = " << open_parenthesis << std::endl;
+    std::cout << "closed_parenthesis = " << closed_parenthesis << std::endl << std::endl;
+
+    if (open_parenthesis == closed_parenthesis)
+    {
+        std::cout << "open_parenthesis = closed_parenthesis. All is good :)" << std::endl;
+    }
+    else
+    {
+        std::cout << "open_parenthesis != closed_parenthesis. Check the correctness of the expression." << std::endl;
+    }
+
+}
+
+void first_enter(const std::string exm)
+{
+    const char* arr = exm.c_str();
+    Set<char> abrcd;
+    for (size_t i = 0; arr[i] != '\0'; ++i)
+    {
+        if (!abrcd.contain(arr[i]))
+        {
+            std::cout << arr[i];
+        }
+        abrcd.add(arr[i]);
+    }
+}
+
+void at_least_twice(const std::string exm)
+{
+    Set<char> abr;
+    const char* arr = exm.c_str();
+    Set<char> abcrd;
+    for (size_t i = 0; arr[i] != '\0'; ++i)
+    {
+        if (abcrd.contain(arr[i]))
+        {
+            abr.add(arr[i]);
+        }
+        abcrd.add(arr[i]);
+
+    }
+    try
+    {
+        abr.remove(' ');
+    }
+    catch (...)
+    {}
+    abr.print_all();
+}
+
+void only_once(const std::string exm)
+{
+    Set<char> abr;
+    const char* arr = exm.c_str();
+    Set<char> abcrd;
+    for (size_t i = 0; arr[i] != '\0'; ++i)
+    {
+        if (abcrd.contain(arr[i]))
+        {
+            abr.add(arr[i]);
+        }
+        abcrd.add(arr[i]);
+    }
+    Set<char> result = abcrd.differ(abr);
+    try
+    {
+        result.remove(' ');
+    }
+    catch (...)
+    {}
+    result.print_all();
+}
