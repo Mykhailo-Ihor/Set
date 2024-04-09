@@ -192,25 +192,44 @@ public:
 	
 	bool circle_of_three()
 	{
+		bool flag = true;
 		for (int i = 0; i < (int)names::counter; ++i)
 		{
+			flag = true;
 			if (visitors[i].get_size() == 2)
 			{
+				Set<names>::Iterator Iter = visitors[i].begin();
 				Set<names> Expected = visitors[i];
-				Expected.add(static_cast<names>(i));
-				Set<names>::Iterator Iter = Expected.begin();
-				Set<names> member1 = visitors[(int)*Iter];
-				Set<names> member2 = visitors[(int)*++Iter];
-				Set<names> member3 = visitors[(int)*++Iter];
-				Set<names> union1 = member1.set_union(member2);
-				Set<names> union2 = union1.set_union(member3);
-				if (union2 == Expected)
+				Expected.add((names)i);
+				std::cout << Expected;
+				for (int j = 0; j < (int)names::counter; ++j)
 				{
-					std::cout << "Тісне коло трьох друзів: " << union2;
+					if (visitors[j].contain(*Iter) && !Expected.contain((names)j))
+					{
+						flag = false;
+						break;
+					}
+				}
+				if (flag)
+				{
+					++Iter;
+					for (int j = 0; j < (int)names::counter; ++j)
+					{
+						if (visitors[j].contain(*Iter) && !Expected.contain((names)j))
+						{
+							flag = false;
+							break;
+						}
+					}
+				}
+				if (flag)
+				{
+					std::cout << "Коло з трьох друзів: " << Expected;
 					return true;
 				}
 			}
 		}
+		std::cout << "Кола з трьох друзів не існує";
 		return false;
 	}
 
