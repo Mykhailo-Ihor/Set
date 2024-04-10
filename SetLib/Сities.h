@@ -45,7 +45,7 @@ public:
         else if (line == "Ужгород") return cities::Ужгород;
         else if (line == "Луцьк") return cities::Луцьк;
         else if (line == "Рівне") return cities::Рівне;
-        else if (line == "Івано_Франківськ") return cities::Івано_Франківськ;
+        else if (line == "Івано-Франківськ") return cities::Івано_Франківськ;
         else if (line == "Житомир") return cities::Житомир;
         else if (line == "Суми") return cities::Суми;
         else if (line == "Донецьк") return cities::Донецьк;

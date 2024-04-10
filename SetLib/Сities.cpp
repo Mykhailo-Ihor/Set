@@ -29,7 +29,6 @@ void find_route(const CitiesTable& table,cities start, cities end)
 	}
     else
     {
-        bool flag = false;
         Set<cities>::Iterator curr = starting_city.begin();
         while (curr != nullptr)
         {
@@ -38,8 +37,7 @@ void find_route(const CitiesTable& table,cities start, cities end)
             {
                 std::cout << "–ейс в≥д м≥ста " << start << " до м≥ста " << end << std::endl;
                 std::cout << start << " -> " << *curr << " -> " << end << std::endl;
-                flag = true;
-                break;
+                return;
             }
             else
             {
@@ -51,17 +49,13 @@ void find_route(const CitiesTable& table,cities start, cities end)
                     {
                         std::cout << "–ейс в≥д м≥ста " << start << " до м≥ста " << end << std::endl;
                         std::cout << start << " -> " << *curr << " -> " << *curr_possible_route << " -> " << end << std::endl;
-                        flag = true;
-                        break;
+                        return;
                     }
                     ++curr_possible_route;
                 }
             }
             ++curr;
         }
-        if (!flag)
-        {
-            std::cout << "–ейсу в≥д м≥ста " << start << " до м≥ста " << end << " немаЇ\n";
-        }
+        std::cout << "–ейсу в≥д м≥ста " << start << " до м≥ста " << end << " немаЇ\n";
     }
 }
